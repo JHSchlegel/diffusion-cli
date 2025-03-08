@@ -3,15 +3,20 @@ This module contains a class for abstraction of image generation using
 different diffusion models.
 """
 
+from typing import Optional, Tuple, Union
+
 # =========================================================================== #
 #                            Packages and Presets                             #
 # =========================================================================== #
 import torch
-from typing import Optional, Tuple
+from diffusers import (
+    DiffusionPipeline,
+    DPMSolverMultistepScheduler,
+    StableDiffusionPipeline,
+)
 from PIL import Image
 
-from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
-from .utils import setup_device, set_seed
+from .utils import set_seed, setup_device
 
 
 # =========================================================================== #
@@ -30,7 +35,7 @@ class DiffusionModel:
             model_id (str): Hugging Face model ID
         """
         self.model_id = model_id
-        self.pipe = None
+        self.pipe: Union[DiffusionPipeline, None] = None
         self.device = setup_device()
 
     def _load_model(self) -> None:
@@ -103,6 +108,7 @@ class DiffusionModel:
         """
         if self.pipe is None:
             self._load_model()
+            assert self.pipe is not None, "Model not loaded"
 
         actual_seed = set_seed(seed)
         output = self.pipe(

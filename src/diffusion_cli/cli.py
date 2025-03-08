@@ -8,6 +8,7 @@ the command line.
 # =========================================================================== #
 import argparse
 import sys
+
 from .models import DiffusionModel
 from .utils import get_default_config, save_image
 
@@ -130,7 +131,10 @@ def main() -> None:
         model = DiffusionModel(args.model)
         print("Loading model and generating image...")
         print(
-            "This may take a while ⏳ for the first run as models are downloaded..."
+            """
+            This may take a while ⏳ for the first run as models \
+            are downloaded...
+            """
         )
 
         image, actual_seed = model.generate_image(

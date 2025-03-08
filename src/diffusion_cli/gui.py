@@ -4,35 +4,39 @@ interface (GUI) for generating images using diffusion models. Note that
 huggingface also offers a web-based GUI called 'gradio'
 """
 
+import os
+
 # =========================================================================== #
 #                            Packages and Presets                             #
 # =========================================================================== #
 import sys
-import os
+from typing import Union
+
 from PIL import Image
+from PIL.ImageQt import ImageQt
+from PyQt6.QtCore import Qt, QThread, QTimer, pyqtSignal
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
-    QMainWindow,
-    QWidget,
-    QVBoxLayout,
+    QComboBox,
+    QDoubleSpinBox,
+    QFileDialog,
+    QFrame,
+    QGroupBox,
     QHBoxLayout,
     QLabel,
     QLineEdit,
-    QComboBox,
-    QSlider,
-    QPushButton,
-    QFileDialog,
-    QSpinBox,
-    QDoubleSpinBox,
-    QProgressBar,
+    QMainWindow,
     QMessageBox,
-    QGroupBox,
+    QProgressBar,
+    QPushButton,
+    QSlider,
+    QSpinBox,
     QSplitter,
-    QFrame,
+    QVBoxLayout,
+    QWidget,
 )
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QTimer
-from PyQt6.QtGui import QPixmap
-from PIL.ImageQt import ImageQt
+
 from .models import DiffusionModel
 from .utils import get_default_config, save_image
 
@@ -49,14 +53,14 @@ class ImageGenerationThread(QThread):
 
     def __init__(
         self,
-        model,
-        prompt,
-        width,
-        height,
-        steps,
-        guidance,
-        seed,
-        negative_prompt,
+        model: DiffusionModel,
+        prompt: str,
+        width: int,
+        height: int,
+        steps: int,
+        guidance: float,
+        seed: Union[int, None],
+        negative_prompt: Union[str, None],
     ) -> None:
         super().__init__()
         self.model = model
@@ -229,7 +233,10 @@ class DiffusionGUI(QMainWindow):
         title_label = QLabel("Diffusion Image Generator")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setStyleSheet(
-            "font-size: 20px; font-weight: bold; margin: 10px 0 20px 0; color: #cba6f7;"
+            """
+            font-size: 20px; font-weight: bold; margin: 10px 0 20px 0; \
+            color: #cba6f7;
+            """
         )
         control_layout.addWidget(title_label)
 
@@ -297,7 +304,9 @@ class DiffusionGUI(QMainWindow):
 
         # Add steps slider
         steps_label = QLabel(
-            f"Inference Steps: {self.config['parameters']['num_inference_steps']}"
+            f"""Inference Steps:\
+                {self.config['parameters']['num_inference_steps']}\
+            """
         )
         self.steps_slider = QSlider(Qt.Orientation.Horizontal)
         self.steps_slider.setMinimum(10)
@@ -400,7 +409,8 @@ class DiffusionGUI(QMainWindow):
         image_title = QLabel("Generated Image")
         image_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         image_title.setStyleSheet(
-            "font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #cba6f7;"
+            """font-size: 18px; font-weight: bold; margin-bottom: 10px;
+           color: #cba6f7;"""
         )
         image_layout.addWidget(image_title)
 
@@ -448,7 +458,7 @@ class DiffusionGUI(QMainWindow):
 
         # Store the current generated image and seed
         self.current_image = None
-        self.current_seed = None
+        self.current_seed: Union[int, None] = None
 
         # Add the image panel to the splitter
         splitter.addWidget(image_panel)
@@ -534,7 +544,9 @@ class DiffusionGUI(QMainWindow):
         # Start the thread
         self.generation_thread.start()
 
-    def display_generated_image(self, image: Image.Image, seed: int):
+    def display_generated_image(
+        self, image: Image.Image, seed: Union[int, None]
+    ) -> None:
         """Display the generated image."""
         # Stop the loading animation
         self.loading_timer.stop()
@@ -567,7 +579,7 @@ class DiffusionGUI(QMainWindow):
         height = image.height
         model_name = self.model_selector.currentText()
         self.image_info.setText(
-            f"Generated with {model_name}, size: {width}x{height}, seed: {seed}"
+            f"Generated with {model_name}, size: {width}x{height}, seed:{seed}"
         )
 
         # Enable the save button

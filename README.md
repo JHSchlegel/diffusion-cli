@@ -67,4 +67,3 @@ Try these prompts for impressive results:
 * `A serene mountain lake at sunset, reflections on water, dramatic sky with purple and orange clouds, majestic pine trees, cinematic lighting, highly detailed`
 * `Portrait of a cyberpunk detective with neon city reflected in sunglasses, rain-soaked streets, dramatic lighting, highly detailed, futuristic aesthetic`
 * `Ancient steampunk city built on floating islands, brass and copper machinery, steam clouds, victorian architecture, airships, golden hour lighting, detailed engineering, epic scale`
-

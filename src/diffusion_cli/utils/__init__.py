@@ -1,25 +1,27 @@
 """
-This module contains utility functions for setting up diffusers pipe and saving images.
+This module contains utility functions for setting up diffusers pipe and
+saving images.
 """
 
 # =========================================================================== #
 #                            Packages and Presets                             #
 # =========================================================================== #
 import os
-from typing import Optional, Dict, Any
-from PIL import Image
-import torch
-import yaml
 import random
-import numpy as np
 from datetime import datetime
 from pathlib import Path
+from typing import Any, Optional
+
+import numpy as np
+import torch
+import yaml
+from PIL import Image
 
 
 # =========================================================================== #
 #                             Pipeline Utilities                              #
 # =========================================================================== #
-def get_default_config() -> Dict[str, Any]:
+def get_default_config() -> Any:
     """Load the default configuration from YAML.
 
     Returns:
@@ -71,7 +73,7 @@ def save_image(
     output_dir: str,
     filename_prefix: Optional[str] = None,
     prompt: Optional[str] = None,
-) -> str:
+) -> Path:
     """Save the generated image
 
     Args:
@@ -85,21 +87,21 @@ def save_image(
     Returns:
         str: filepath of the saved image
     """
-    output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
+    path_output_dir: Path = Path(output_dir)
+    path_output_dir.mkdir(parents=True, exist_ok=True)
 
     # Create a filename
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    prompt_bit = ""
-    if prompt:
+    timestamp: str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    prompt_bit: str = ""
+    if prompt is not None:
         # create a slug from the prompt (first 30 chars, alphanumeric only)
         prompt = prompt.replace(" ", "_")
         prompt_bit = "".join(c for c in prompt[:30] if c.isalnum() or c == "_")
 
-    prefix = f"{filename_prefix}" if filename_prefix else ""
-    filename = f"{prefix}_{timestamp}_{prompt_bit}.png"
+    prefix: str = f"{filename_prefix}" if filename_prefix else ""
+    filename: str = f"{prefix}_{timestamp}_{prompt_bit}.png"
 
-    filepath = output_dir / filename
+    filepath: Path = path_output_dir / filename
     image.save(filepath)
 
     return filepath
