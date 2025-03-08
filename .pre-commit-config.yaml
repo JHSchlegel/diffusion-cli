@@ -29,4 +29,5 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
+        entry: bash -c 'mypy $(git ls-files -- "*.py")'
         additional_dependencies: ["types-PyYAML"]

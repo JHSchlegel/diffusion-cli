@@ -37,7 +37,7 @@ jobs:
         run: |
           isort --check --profile black $(git ls-files '*.py')
 
-      - name: Run mypy
+      - name: Run mypy (informational only)
         if: always()
         run: |
           mypy $(git ls-files '*.py')
