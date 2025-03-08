@@ -35,14 +35,14 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "black[d]",
+    "black==25.1.0",
+    "isort==6.0.1",
+    "mypy==1.15.0",
+    "ruff==0.9.9",
+    "types-PyYAML",
     "coverage",
-    "isort",
-    "mypy",
     "pytest",
     "pytest-cov",
-    "ruff",
-    "types-PyYAML",
     "pre-commit",
 ]
 
