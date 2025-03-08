@@ -1,0 +1,21 @@
+models:
+  - id: stabilityai/sdxl-turbo
+    name: Stable Diffusion XL Turbo
+    default: true
+  - id: stabilityai/stable-diffusion-2-1
+    name: Stable Diffusion 2.1
+  - id: stabilityai/stable-diffusion-xl-base-1.0
+    name: Stable Diffusion XL Base
+  - id: prompthero/openjourney
+    name: OpenJourney (Midjourney Style)
+
+
+parameters:
+  width: 512
+  height: 512
+  num_inference_steps: 30
+  guidance_scale: 7.5
+  seed: null  # random seed if null/None
+  num_images: 1
+  output_dir: ./outputs
+  filename_prefix: sd_gen
