@@ -133,7 +133,7 @@ def main() -> None:
             "This may take a while ⏳ for the first run as models are downloaded..."
         )
 
-        image, used_seed = model.generate_image(
+        image, actual_seed = model.generate_image(
             prompt=args.prompt,
             width=args.width,
             height=args.height,
