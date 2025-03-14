@@ -48,12 +48,26 @@ class DiffusionModel:
         )
 
         # load pipeline:
-        self.pipe = StableDiffusionPipeline.from_pretrained(
-            self.model_id,
-            torch_dtype=torch_dtype,
-            safety_checker=None,  # Disable safety checker for speed
-            use_safetensors=True,
-        )
+        if (
+            "xl" in self.model_id.lower()
+            and "stabilityai" in self.model_id.lower()
+        ):
+            # Use StableDiffusionXLPipeline for SDXL models
+            from diffusers import StableDiffusionXLPipeline
+
+            self.pipe = StableDiffusionXLPipeline.from_pretrained(
+                self.model_id,
+                torch_dtype=torch_dtype,
+                use_safetensors=True,
+            )
+        else:
+            # Use regular StableDiffusionPipeline for other SD models
+            self.pipe = StableDiffusionPipeline.from_pretrained(
+                self.model_id,
+                torch_dtype=torch_dtype,
+                safety_checker=None,  # Disable safety checker for speed
+                use_safetensors=True,
+            )
 
         self.pipe.scheduler = DPMSolverMultistepScheduler.from_config(
             self.pipe.scheduler.config
