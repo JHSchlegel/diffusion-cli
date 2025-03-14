@@ -30,7 +30,6 @@ pip install uv
 # Create and activate new uv environment
 uv venv -p python3.10 diffusion
 source diffusion/bin/activate
-uv pip install -r requirements.txt
 
 # Install the package and its dependencies
 pip install -e .
@@ -46,7 +45,7 @@ diffusion-cli "a beautiful landscape with mountains"
 
 # Specify model and parameters
 diffusion-cli "a futuristic cityscape with neon lights" \
-  --model stabilityai/stable-diffusion-2 \
+  --model stabilityai/stable-diffusion-2-1 \
   --width 768 --height 512 \
   --steps 30 \
   --guidance 7.5 \
