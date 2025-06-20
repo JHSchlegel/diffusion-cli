@@ -6,16 +6,16 @@ A command line interface and GUI application for image generation with diffusion
 
 <img src="docs/img/sd_gen.png" alt="Diffusion CLI Example" />
 
-## ✨ Features
+## Features
 
-* 🖼️ Generate images from text prompts using state-of-the-art diffusion models
-* 🖥️ Command-line interface for quick image generation
-* 🎨 Graphical user interface for interactive image creation
-* 🤗 Support for multiple models from Hugging Face
-* ⚙️ Customizable parameters (resolution, inference steps, guidance scale, etc.)
-* 🚀 Optimized for memory usage on GPU
+* Generate images from text prompts using state-of-the-art diffusion models
+* Command-line interface for quick image generation
+* Graphical user interface for interactive image creation
+* Support for multiple models from Hugging Face
+* Customizable parameters (resolution, inference steps, guidance scale, etc.)
+* Optimized for memory usage on GPU
 
-## 🛠️ Setup
+## Setup
 
 Create a new conda environment with all dependencies:
 
@@ -35,7 +35,7 @@ source diffusion/bin/activate
 pip install -e .
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Command Line Interface
 
@@ -59,7 +59,7 @@ diffusion-cli "a futuristic cityscape with neon lights" \
 diffusion-gui
 ```
 
-## 📋 Example Prompts
+## Example Prompts
 
 Try these prompts for impressive results:
 
